@@ -17,13 +17,13 @@
     --fg: #f3f1ec;
     --fg-dim: #8a8a86;
     --line: #262626;
-    --accent: #d4ff3a;
+    --accent: #a855f7;
     --display: "Bricolage Grotesque", system-ui, sans-serif;
     --mono: "JetBrains Mono", ui-monospace, monospace;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html, body { background: var(--bg); color: var(--fg); font-family: var(--display); -webkit-font-smoothing: antialiased; }
-  body { overflow-x: hidden; cursor: none; }
+  body { overflow-x: hidden; }
   a { color: inherit; text-decoration: none; }
   ::selection { background: var(--accent); color: #0e0e0e; }
   html.splashing, html.splashing body { overflow: hidden; }
@@ -51,16 +51,6 @@
   @keyframes fill { to { inset: 0 0 0 0; } }
 
   /* ============ Cursor ============ */
-  .cursor-dot, .cursor-ring {
-    position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9999;
-    border-radius: 999px; transform: translate3d(-50%, -50%, 0);
-    transition: opacity .2s ease;
-  }
-  .cursor-dot { width: 6px; height: 6px; background: #a855f7; }
-  .cursor-ring { width: 36px; height: 36px; border: 1px solid var(--fg);
-                 transition: width .25s ease, height .25s ease, border-color .25s ease, background-color .25s, transform .08s linear; }
-  .cursor-ring.is-hover { width: 68px; height: 68px; border-color: #a855f7; background: rgba(168,85,247,0.06); }
-  @media (hover: none) { .cursor-dot, .cursor-ring { display: none; } body { cursor: auto; } }
 
   /* ============ Nav — solid black, sticky, no overlap ============ */
   .nav {
@@ -104,7 +94,7 @@
     pointer-events: none;
   }
   .hero::after { content: ""; position: absolute; left: 50%; top: 50%; width: 80vmax; height: 80vmax;
-    background: radial-gradient(circle, rgba(212,255,58,0.10) 0%, rgba(212,255,58,0) 55%);
+    background: radial-gradient(circle, rgba(168,85,247,0.10) 0%, rgba(212,255,58,0) 55%);
     transform: translate(-50%, -50%); pointer-events: none;
     animation: glow 9s ease-in-out infinite alternate;
   }
@@ -168,8 +158,8 @@
   /* ============ Services ============ */
   .services-list { border-top: 1px solid var(--line); }
   .service { display: grid; grid-template-columns: 80px 1fr 2fr 60px; gap: 32px; align-items: center;
-             padding: 36px 0; border-bottom: 1px solid var(--line); cursor: none; transition: padding .4s ease; position: relative; }
-  .service::before { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(212,255,58,0.06), transparent 60%); opacity: 0; transition: opacity .4s; pointer-events: none; }
+             padding: 36px 0; border-bottom: 1px solid var(--line); transition: padding .4s ease; position: relative; }
+  .service::before { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(168,85,247,0.06), transparent 60%); opacity: 0; transition: opacity .4s; pointer-events: none; }
   .service:hover { padding-left: 24px; }
   .service:hover::before { opacity: 1; }
   .service:hover .svc-name { color: var(--accent); }
@@ -180,7 +170,7 @@
   .svc-arrow { width: 32px; height: 32px; transition: transform .3s ease, color .3s; justify-self: end; }
 
   /* ============ Work ============ */
-  .work-card { display: block; cursor: none; position: relative; }
+  .work-card { display: block; position: relative; }
   .work-card .frame { aspect-ratio: 16/9; background: var(--bg-2); border: 1px solid var(--line); border-radius: 8px; overflow: hidden; position: relative; transition: transform .6s cubic-bezier(.2,.8,.2,1), border-color .4s; }
   .work-card:hover .frame { transform: translateY(-8px); border-color: var(--accent); }
   .work-card .preview { position: absolute; inset: 0; transition: transform .8s cubic-bezier(.2,.8,.2,1); }
@@ -233,7 +223,7 @@
   .phone-big:hover { color: var(--accent); letter-spacing: -0.035em; }
 
   /* Ripple */
-  .ripple { position: absolute; border-radius: 50%; background: rgba(212,255,58,0.55); transform: translate(-50%, -50%) scale(0); animation: ripple .7s cubic-bezier(.2,.8,.2,1) forwards; pointer-events: none; mix-blend-mode: screen; }
+  .ripple { position: absolute; border-radius: 50%; background: rgba(168,85,247,0.55); transform: translate(-50%, -50%) scale(0); animation: ripple .7s cubic-bezier(.2,.8,.2,1) forwards; pointer-events: none; mix-blend-mode: screen; }
   @keyframes ripple { to { transform: translate(-50%, -50%) scale(8); opacity: 0; } }
 
   /* ============ Footer ============ */
@@ -265,7 +255,6 @@
     section { padding: 80px 20px; }
     .hero { padding: 100px 20px 60px; }
     .contact-actions { align-items: flex-start; }
-    body { cursor: auto; }
     .work-card, .service, .contact-actions a, .phone-big { cursor: pointer; }
     .splash-skip { right: 20px; bottom: 20px; }
   }
@@ -291,8 +280,6 @@
   <div class="splash-bar"></div>
 </div>
 
-<div class="cursor-dot"></div>
-<div class="cursor-ring"></div>
 
 <!-- ============ NAV ============ -->
 <nav class="nav" id="nav">
@@ -311,9 +298,9 @@
     </span>
   </a>
   <div class="nav-links">
+    <a href="#work" data-hover>Work</a>
     <a href="#about" data-hover>About</a>
     <a href="#services" data-hover>Services</a>
-    <a href="#work" data-hover>Work</a>
     <a href="#contact" data-hover>Contact</a>
   </div>
   <a href="tel:+18018606400" class="nav-phone" data-hover>
@@ -354,10 +341,58 @@
   </div>
 </header>
 
+<!-- ============ WORK ============ -->
+<section id="work">
+  <div class="section-head reveal">
+    <div class="section-tag"><b>01</b>SELECTED WORK</div>
+    <h2 class="section-title">Recent demos. Tap to view live.</h2>
+  </div>
+  <!-- Dunn Maintenance -->
+  <a class="work-card reveal r-scale" href="http://localhost:8765" target="_blank" rel="noopener" data-hover style="margin-bottom: 60px; display: block;">
+    <div class="frame">
+      <div class="preview preview-bell">
+        <img src="demos/dunn-maintenance.png" alt="Dunn Maintenance website homepage" loading="lazy" />
+        <div class="demo-caption">
+          <span>DEMO SITE</span>
+        </div>
+      </div>
+    </div>
+    <div class="work-meta">
+      <div>
+        <h3>Dunn Maintenance</h3>
+        <div class="tag">Home Services / Demo</div>
+      </div>
+      <span class="view">View site
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg>
+      </span>
+    </div>
+  </a>
+  <!-- Bell Automotive -->
+  <a class="work-card reveal r-scale" href="https://bellautomotiveservice.netlify.app/" target="_blank" rel="noopener" data-hover>
+    <div class="frame">
+      <div class="preview preview-bell">
+        <img src="demos/bell-automotive.png" alt="Bell Automotive Service website homepage" loading="lazy" />
+        <div class="demo-caption">
+          <span>DEMO SITE</span>
+        </div>
+      </div>
+    </div>
+    <div class="work-meta">
+      <div>
+        <h3>Bell Automotive Service</h3>
+        <div class="tag">Auto Mechanic / Demo</div>
+      </div>
+      <span class="view">View site
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg>
+      </span>
+    </div>
+  </a>
+</section>
+
 <!-- ============ ABOUT ============ -->
 <section id="about">
   <div class="section-head reveal">
-    <div class="section-tag"><b>01</b>ABOUT</div>
+    <div class="section-tag"><b>02</b>ABOUT</div>
   </div>
   <div class="about-grid">
     <h2 class="section-title reveal r-left">A young entrepreneur, designing on the web.</h2>
@@ -376,7 +411,7 @@
 <!-- ============ SERVICES ============ -->
 <section id="services">
   <div class="section-head reveal">
-    <div class="section-tag"><b>02</b>WHAT I DO</div>
+    <div class="section-tag"><b>03</b>WHAT I DO</div>
     <h2 class="section-title">Four things, done well.</h2>
   </div>
   <div class="services-list">
@@ -405,33 +440,6 @@
       <svg class="svc-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
     </a>
   </div>
-</section>
-
-<!-- ============ WORK ============ -->
-<section id="work">
-  <div class="section-head reveal">
-    <div class="section-tag"><b>03</b>SELECTED WORK</div>
-    <h2 class="section-title">Recent demo. Tap to view live.</h2>
-  </div>
-  <a class="work-card reveal r-scale" href="https://bellautomotiveservice.netlify.app/" target="_blank" rel="noopener" data-hover>
-    <div class="frame">
-      <div class="preview preview-bell">
-        <img src="demos/bell-automotive.png" alt="Bell Automotive Service website homepage" loading="lazy" />
-        <div class="demo-caption">
-          <span>DEMO SITE</span>
-        </div>
-      </div>
-    </div>
-    <div class="work-meta">
-      <div>
-        <h3>Bell Automotive Service</h3>
-        <div class="tag">Auto Mechanic / Demo</div>
-      </div>
-      <span class="view">View site
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg>
-      </span>
-    </div>
-  </a>
 </section>
 
 <!-- ============ CONTACT ============ -->
@@ -477,28 +485,6 @@
   splash.addEventListener('click', dismissSplash);
   setTimeout(dismissSplash, 2700);
 
-  // ============ Cursor ============
-  const dot = document.querySelector('.cursor-dot');
-  const ring = document.querySelector('.cursor-ring');
-  let mx = window.innerWidth / 2, my = window.innerHeight / 2;
-  let rx = mx, ry = my;
-  window.addEventListener('mousemove', e => {
-    mx = e.clientX; my = e.clientY;
-    dot.style.transform = `translate3d(${mx}px, ${my}px, 0) translate(-50%, -50%)`;
-  });
-  function tick() {
-    rx += (mx - rx) * 0.18;
-    ry += (my - ry) * 0.18;
-    ring.style.transform = `translate3d(${rx}px, ${ry}px, 0) translate(-50%, -50%)`;
-    requestAnimationFrame(tick);
-  }
-  tick();
-  document.addEventListener('mouseenter', e => {
-    if (e.target.matches && e.target.matches('[data-hover]')) ring.classList.add('is-hover');
-  }, true);
-  document.addEventListener('mouseleave', e => {
-    if (e.target.matches && e.target.matches('[data-hover]')) ring.classList.remove('is-hover');
-  }, true);
 
   // ============ Marquee ============
   const marquee = document.getElementById('marquee');
